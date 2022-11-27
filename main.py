@@ -1,6 +1,6 @@
 import pandas as pd # For dataframes and etc
 from datetime import datetime as dt # For date/time comprehension
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt # For images of data plots
 
 # Import datasheet.
 df = pd.read_csv("Data/Groceries_dataset.csv")
@@ -34,8 +34,13 @@ top_10_items.rename(columns={top_10_items.columns[0]:'Item Name', top_10_items.c
 
 print(top_10_items)
 
+# Graphical Ver.
+top_10_graph = top_10_items.plot.bar(x="Item Name")
+
+plt.show()
+
 # Next I think we're going to do some date-time stuff, which is going to be a little bit of a pain, but c'est la vie.
-print("\n------------------------------------------------------\n") # Just to separate the output log
+print(f"\n{'-'*25}\n") # Just to separate the output log
 items_date = df[['itemDescription','Date']].copy()
 
 # I'm going to use .apply with a lambda function to just to add a "year" and "month" column, just to split up the overall date column
@@ -53,3 +58,47 @@ bar_graph.set_xlabel("Month")
 bar_graph.set_ylabel("# Purchases")
 
 plt.show()
+
+# For our final question, we asked the following:
+# "Are customers who bought shopping bags more often buying groceries?"
+
+query = df.query("itemDescription == 'shopping bags'") # Grabs all customer ID's who bought a shopping bag.
+
+# Next, we want to compare the amount of purchases of those who bought shopping bags VS those who did not.
+# Only one issue - this data set is very, very large, so there happens to be a LOT more people who just happened to buy things,
+# but never bought shopping bags.
+
+# How do we solve this issue?
+
+# Simple - we should compute the averages in order to have some normalised values.
+
+# 1. Compute total purchases / amount of customers == average purchases by those who bought shopping bags
+bag_owners_purchases = df.loc[df['Member_number'].isin(query["Member_number"])]
+no_bags_purchases = df.loc[~df['Member_number'].isin(query["Member_number"])]
+
+print(f"\n{'-'*25}\n")
+print(bag_owners_purchases)
+print(no_bags_purchases)
+
+# Just double check that we did the above operations correctly.
+check = no_bags_purchases.query("itemDescription == 'shopping bags'").index.empty
+print(f"Properly Filtered Bag Owners?: {check}")
+
+# Now that we have # of purchases done by people who bought bags and those who didn't, compute their averages.
+# We need to just compute # of customers (just get unique member IDs) then divide the total purchases by that number.
+
+bag_owners = bag_owners_purchases["Member_number"].value_counts() # Gets us # of bag owners
+no_bag_owners = no_bags_purchases["Member_number"].value_counts() # Gets us # of people who dont own bags
+
+print(f"Bag Owners: {len(bag_owners)}")
+print(f"No Bag Owners: {len(no_bag_owners)}")
+
+avg_bag = len(bag_owners_purchases) / len(bag_owners)
+avg_no_bag = len(no_bags_purchases) / len(no_bag_owners)
+
+
+print(f"\n{'-'*25}\nAverage Purchases of Customers w/ Re-usable Bags VS. Average Purchases of Customers w/ No Reusable Bag\n\t\t{avg_bag} vs {avg_no_bag}")
+
+# If someone is buying re-usable bags, it means they probably shop at this store enough to want to
+# save money by using re-usable bags, as opposed to someone who only comes to the store for one or
+# two purchases, or is just less often buying stuff at this store.
