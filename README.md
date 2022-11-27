@@ -116,11 +116,11 @@ There's a lot going on here, but to break it down simply...
 ## Results
 First, lets take a look at the Top 3 Customers (ranked by most purchases.)
 
-![Shoppers](./images/Shoppers.png)
+![Shoppers](https://github.com/Caldraeus/data-science-final/blob/master/Images/Shoppers.png)
 ___
 Next, here are the results for the 10 most popular items bought.
 
-![Top Ten](./images/Figure_1.png)
+![Top Ten](https://github.com/Caldraeus/data-science-final/blob/master/Images/Figure_1.png)
 
 The figure above shows a graphical representation of the 10 most purchased items from Market Basket. To break it down, we have the following.
 1. Whole Milk - 2502 Purchases
@@ -134,7 +134,7 @@ The figure above shows a graphical representation of the 10 most purchased items
 9. Sausage - 924 Purchases
 10. Citrus Fruit - 812 Purchases 
 ___
-![Monthly](./images/Figure_2.png)
+![Monthly](https://github.com/Caldraeus/data-science-final/blob/master/Images/Figure_2.png)
 The figure above shows the amount of purchases per month, over the course of 2014-2015. Specifically, we have the following up values.
 1. Jan - 3324
 2. Feb - 2997
@@ -151,7 +151,7 @@ The figure above shows the amount of purchases per month, over the course of 201
 ___
 We also took some time to compare the average purchases done by customers who purchased re-usable shopping bags against customers who didn't buy re-usable bags.
 
-![Monthly](./images/avgs.png)
+![Monthly](https://github.com/Caldraeus/data-science-final/blob/master/Images/avgs.png)
 ## Discussion
 After reviewing our data, we came to a few conclusions that could be helpful for Market Basket.
 
