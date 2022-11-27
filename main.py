@@ -16,6 +16,7 @@ print("\n.: Top 3 Shoppers by ID :.")
 
 top_3_shoppers = counts.iloc[:3].items()
 
+# Just iterate through and print here because it's easier.
 for member_id, purchases in top_3_shoppers:
     print(f"Member ID: {member_id}\n\tTotal Purchases: {purchases}\n")
 
@@ -72,7 +73,7 @@ query = df.query("itemDescription == 'shopping bags'") # Grabs all customer ID's
 
 # Simple - we should compute the averages in order to have some normalised values.
 
-# 1. Compute total purchases / amount of customers == average purchases by those who bought shopping bags
+# Compute total purchases / amount of customers == average purchases by those who bought shopping bags
 bag_owners_purchases = df.loc[df['Member_number'].isin(query["Member_number"])]
 no_bags_purchases = df.loc[~df['Member_number'].isin(query["Member_number"])]
 
@@ -93,11 +94,11 @@ no_bag_owners = no_bags_purchases["Member_number"].value_counts() # Gets us # of
 print(f"Bag Owners: {len(bag_owners)}")
 print(f"No Bag Owners: {len(no_bag_owners)}")
 
-avg_bag = len(bag_owners_purchases) / len(bag_owners)
-avg_no_bag = len(no_bags_purchases) / len(no_bag_owners)
+avg_bag = len(bag_owners_purchases) / len(bag_owners) # Compute avg
+avg_no_bag = len(no_bags_purchases) / len(no_bag_owners) # Compute avg
 
 
-print(f"\n{'-'*25}\nAverage Purchases of Customers w/ Re-usable Bags VS. Average Purchases of Customers w/ No Reusable Bag\n\t\t{avg_bag} vs {avg_no_bag}")
+print(f"\n{'-'*25}\n\nAverage Purchases of Customers w/ Re-usable Bags VS. Average Purchases of Customers w/ No Reusable Bag\n\t\t{avg_bag} vs {avg_no_bag}")
 
 # If someone is buying re-usable bags, it means they probably shop at this store enough to want to
 # save money by using re-usable bags, as opposed to someone who only comes to the store for one or
